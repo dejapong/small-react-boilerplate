@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import App from './js/components/App';
+import store from './js/store/index';
 
 const BasicExample = () => (
   <Router>
@@ -9,7 +12,7 @@ const BasicExample = () => (
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/articles">Articles</Link>
         </li>
         <li>
           <Link to="/topics">Topics</Link>
@@ -19,7 +22,7 @@ const BasicExample = () => (
       <hr />
 
       <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
+      <Route path="/articles" component={Articles} />
       <Route path="/topics" component={Topics} />
     </div>
   </Router>
@@ -31,34 +34,36 @@ const Home = () => (
   </div>
 );
 
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
+const Articles = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>Components</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-      </li>
-    </ul>
+  <Provider store={store}>
+    <div>
+      <h2>Topics</h2>
+      <ul>
+        <li>
+          <Link to={`${match.url}/rendering`}>Rendering with React</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/components`}>Components</Link>
+        </li>
+        <li>
+          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+        </li>
+      </ul>
 
-    <Route path={`${match.url}/:topicId`} component={Topic} />
-    <Route
-      exact
-      path={match.url}
-      render={() => <h3>Please select a topic.</h3>}
-    />
-  </div>
+      <Route path={`${match.url}/:topicId`} component={Topic} />
+      <Route
+        exact
+        path={match.url}
+        render={() => <h3>Please select a topic.</h3>}
+      />
+    </div>
+  </Provider>
 );
 
 const Topic = ({ match }) => (
