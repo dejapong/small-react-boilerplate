@@ -1,0 +1,13 @@
+App for creating directed graph database
+
+Views
+  view node
+
+Nodes
+  Add node
+  remove node
+  connect node
+
+User
+  signup
+  signin

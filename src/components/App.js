@@ -1,8 +1,42 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './js/components/App';
 import store from './js/store/index';
+
+import React from 'react';
+import List from './List';
+import Form from './Form';
+
+const App = () => (
+  <Router>
+    <div>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/articles">Articles</Link>
+        </li>
+        <li>
+          <Link to="/topics">Topics</Link>
+        </li>
+      </ul>
+      <hr />
+      <Route exact path="/" component={Home} />
+      <Route path="/articles" component={Articles} />
+      <Route path="/topics" component={Topics} />
+      <div className="row mt-5">
+        <div className="col-md-4 offset-md-1">
+          <h2>Articles</h2>
+          <List />
+        </div>
+        <div className="col-md-4 offset-md-1">
+          <h2>Add a new article</h2>
+          <Form />
+        </div>
+      </div>
+    </div>
+  </Router>
+);
 
 const BasicExample = () => (
   <Router>
@@ -18,9 +52,7 @@ const BasicExample = () => (
           <Link to="/topics">Topics</Link>
         </li>
       </ul>
-
       <hr />
-
       <Route exact path="/" component={Home} />
       <Route path="/articles" component={Articles} />
       <Route path="/topics" component={Topics} />
@@ -72,4 +104,4 @@ const Topic = ({ match }) => (
   </div>
 );
 
-export default BasicExample;
+export default App;
